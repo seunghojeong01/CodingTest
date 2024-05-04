@@ -1,1 +1,331 @@
+1.N을 입력받은 뒤, 구구단 N단을 출력하는 프로그램을 작성하시오. 출력 형식에 맞춰서 출력하면 된다.
+  import java.io.*;
+  public class Main {
+  
+  	public static void main(String[] args) throws IOException {
+  	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+  	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+  	
+  	int a=Integer.parseInt(br.readLine());
+  	
+  	for(int i=1;i<10;i++) {
+  		bw.write(a+" * "+i+" = "+a*i+"\n");
+  	}
+  	
+  	bw.flush();
+  	br.close();
+  	bw.close();
+   }
+  }
 
+2.두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
+  import java.io.*;
+  import java.util.StringTokenizer;
+  public class Main {
+  
+  	public static void main(String[] args) throws IOException {
+  	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+  	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+  	
+  	
+  	int t=Integer.parseInt(br.readLine());
+  	for(int i=0;i < t;i++) {
+  		StringTokenizer st=new StringTokenizer(br.readLine());              // 이 부분 조심할것 
+  		int a=Integer.parseInt(st.nextToken());
+  		int b=Integer.parseInt(st.nextToken());
+  		bw.write(a+b+"\n");
+  		bw.flush();                                                          //바로 출력해주기 위함
+  	}
+  	
+  	
+  	br.close();
+  	bw.close();
+   }
+  }
+
+3.n이 주어졌을 때, 1부터 n까지 합을 구하는 프로그램을 작성하시오.
+import java.io.*;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine());
+	int sum=0;
+	for(int i=1;i <= t;i++) {
+		sum += i ;
+
+	}
+	bw.write(String.valueOf(sum));	                         //bw는 String만 제대로 출력하는듯
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+4.준원이는 저번 주에 살면서 처음으로 코스트코를 가 봤다. 정말 멋졌다. 그런데, 몇 개 담지도 않았는데 수상하게 높은 금액이 나오는 것이다! 준원이는 영수증을 보면서 정확하게 계산된 것이 맞는지 확인해보려 한다
+영수증에 적힌,
+
+구매한 각 물건의 가격과 개수
+구매한 물건들의 총 금액
+을 보고, 구매한 물건의 가격과 개수로 계산한 총 금액이 영수증에 적힌 총 금액과 일치하는지 검사해보자.
+
+import java.io.*;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //물건 총가격
+	int count=Integer.parseInt(br.readLine());//물건 개수
+	int sum=0;
+	for(int i=1;i <= count;i++) {
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		int a=Integer.parseInt(st.nextToken()); //물건의 가격
+		int b=Integer.parseInt(st.nextToken()); //물건의 개수
+		a=a*b;
+		sum +=a;
+	}
+	if(t==sum) {
+		bw.write("Yes");
+	}else {
+		bw.write("No");
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+5.혜아는 책에 있는 정수 자료형과 관련된 내용을 기억해 냈다. 책에는 long int는 
+4바이트 정수까지 저장할 수 있는 정수 자료형이고 long long int는 
+8바이트 정수까지 저장할 수 있는 정수 자료형이라고 적혀 있었다. 혜아는 이런 생각이 들었다. “int 앞에 long을 하나씩 더 붙일 때마다 
+4바이트씩 저장할 수 있는 공간이 늘어나는 걸까? 분명 long long long int는 
+12바이트, long long long long int는 
+16바이트까지 저장할 수 있는 정수 자료형일 거야!” 그렇게 혜아는 당황하는 면접관의 얼굴을 뒤로한 채 칠판에 정수 자료형을 써 내려가기 시작했다.
+
+혜아가 
+N바이트 정수까지 저장할 수 있다고 생각해서 칠판에 쓴 정수 자료형의 이름은 무엇일까?
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	int a=t/4;
+	for (int i=0;i<a;i++) {
+		bw.write("long ");
+	}
+	bw.write("int");
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+6.첫 줄에 테스트케이스의 개수 T가 주어진다. T는 최대 1,000,000이다. 다음 T줄에는 각각 두 정수 A와 B가 주어진다. A와 B는 1 이상, 1,000 이하이다
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	
+	for (int i=0;i<t;i++) {
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+		bw.write(a+b+"\n");
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+7.두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.//(출력폼->Case #1: 2)
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	
+	for (int i=1;i<=t;i++) {
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+		bw.write("Case #"+i+": "+(a+b)+"\n");                       //(a+b) 조
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+8.두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.//(출력폼->Case #1: 1 + 1 = 2)
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	
+	for (int i=1;i<=t;i++) {
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+		bw.write("Case #"+i+": "+a+" + "+b+" = "+(a+b)+"\n");
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+9.첫째 줄에는 별 1개, 둘째 줄에는 별 2개, N번째 줄에는 별 N개를 찍는 문제
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	
+	for (int i=1;i<=t;i++) {
+		for(int j=0;j<i;j++) {
+			bw.write("*");
+		}
+		bw.newLine();
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+
+10.첫째 줄에는 별 1개, 둘째 줄에는 별 2개, N번째 줄에는 별 N개를 찍는 문제
+   하지만, 오른쪽을 기준으로 정렬한 별(예제 참고)을 출력하시오.
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	
+	
+	int t=Integer.parseInt(br.readLine()); //입력값 4의배수
+	
+	for (int i=1;i<=t;i++) {
+		for(int j=0;j<t-i;j++) {    //공백출력하기
+			bw.write(" ");
+		}
+		for(int j=0;j<i;j++) {
+			bw.write("*");
+		}
+		bw.newLine();
+	}
+	bw.flush();
+	br.close();
+	bw.close();
+ }
+}
+11.두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
+   입력은 여러 개의 테스트 케이스로 이루어져 있다.
+   각 테스트 케이스는 한 줄로 이루어져 있으며, 각 줄에 A와 B가 주어진다. (0 < A, B < 10)
+   입력의 마지막에는 0 두 개가 들어온다.
+
+import java.io.*;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+
+	while(true){
+		StringTokenizer st=new StringTokenizer(br.readLine());           
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+			
+		if(a==0 && b==0){ break;}                              //0 0 입력시 바로 빠져나오기 위한 위치 (주의)
+		bw.write(a+b+"\n");
+		bw.flush();
+	}
+
+	br.close();
+	bw.close();
+ }
+}
+
+12.두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.             /*(어렵다)*
+import java.io.*;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	String line;
+	 while((line=br.readLine()) != null && !line.isBlank()){                             // br.readLine()의 결과가 null인지 먼저 확인하여 파일의 끝(EOF)에 도달했는지 알아야 한단다;
+		StringTokenizer st=new StringTokenizer(line);                                      // 이런 방식도 있다. (st에 line 넣기)
+	
+		int a=Integer.parseInt(st.nextToken());
+		int b=Integer.parseInt(st.nextToken());
+
+
+		bw.write((a+b)+"\n");
+		bw.flush();
+	}
+	bw.close();
+	br.close();
+
+ }
+}
