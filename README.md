@@ -1,3 +1,3 @@
 # CodingTest
-BeakJoon
+BeakJoon\n
   -단계별 풀어보기 3단계 12번
