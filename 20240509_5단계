@@ -1,1 +1,51 @@
+7.문자열 S를 입력받은 후에, 각 문자를 R번 반복해 새 문자열 P를 만든 후 출력하는 프로그램을 작성하시오.
+  즉, 첫 번째 문자를 R번 반복하고, 두 번째 문자를 R번 반복하는 식으로 P를 만들면 된다. S에는 QR Code "alphanumeric" 문자만 들어있다.
+  QR Code "alphanumeric" 문자는 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\$%*+-./: 이다.
+import java.io.*;
+import java.util.StringTokenizer;
+public class Main {
 
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	int T=Integer.parseInt(br.readLine());
+	for(int i=0;i<T;i++) {
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		int R=Integer.parseInt(st.nextToken());
+		String S=st.nextToken();
+		
+		for(int j=0;j<S.length();j++) {
+			for(int k=0;k<R;k++) {
+				bw.write(S.charAt(j));
+			}
+		}
+		bw.write("\n");
+	}
+	bw.flush();
+	bw.close();
+	br.close();
+ }
+}
+
+8.영어 대소문자와 공백으로 이루어진 문자열이 주어진다. 이 문자열에는 몇 개의 단어가 있을까? 이를 구하는 프로그램을 작성하시오. 단, 한 단어가 여러 번 등장하면 등장한 횟수만큼 모두 세어야 한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+	BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+	BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+	StringTokenizer st=new StringTokenizer(br.readLine());
+	
+	
+	bw.write(String.valueOf(st.countTokens()));                   //처음봄 ;;
+	bw.flush();
+	bw.close();
+	br.close();
+
+ }
+}
