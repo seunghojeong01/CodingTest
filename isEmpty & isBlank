@@ -1,0 +1,7 @@
+String emptyString = "";
+System.out.println(emptyString.isEmpty());  // 출력: true
+System.out.println(emptyString.isBlank());  // 출력: true
+
+String spaceString = " ";
+System.out.println(spaceString.isEmpty());  // 출력: false, 공백 문자가 있기 때문
+System.out.println(spaceString.isBlank());  // 출력: true, 공백 문자만 있어서 "비어있다"로 판단
