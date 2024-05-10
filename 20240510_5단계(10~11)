@@ -109,3 +109,39 @@ public class Main {
 
  }
 }
+
+3)if 문을 사용한 누군가의 풀이                 ---------------이게 가장 좋을거 같음
+import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) throws IOException{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		char[] input = br.readLine().toCharArray();					//이거 알아두면 좋을듯?
+		int count = 0;
+
+		for(int i=0; i<input.length; i++) {
+			if('A' <= input[i] && input[i] < 'D')
+				count += 3;
+			else if('D' <= input[i] && input[i] < 'G')				//다만 여기서 부터  input[i] < 'G' 이것만 써도 될꺼같음
+				count += 4;
+			else if('G' <= input[i] && input[i] < 'J')
+				count += 5;
+			else if('J' <= input[i] && input[i] < 'M')
+				count += 6;
+			else if('M' <= input[i] && input[i] < 'P')
+				count += 7;
+			else if('P' <= input[i] && input[i] < 'T')
+				count += 8;
+			else if('T' <= input[i] && input[i] < 'W')
+				count += 9;
+			else 
+				count += 10;
+		}
+		System.out.println(count);
+	}	
+}
+
+11.입력 받은 대로 출력하는 프로그램을 작성하시오.
+
