@@ -1,0 +1,244 @@
+1.N*M크기의 두 행렬 A와 B가 주어졌을 때, 두 행렬을 더하는 프로그램을 작성하시오.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int N=Integer.parseInt(st.nextToken());
+        int M=Integer.parseInt(st.nextToken());
+        
+        int array1[][]=new int[N][M];
+        for(int i=0;i<N;i++) {		//첫번쨰 배열
+        	StringTokenizer st2=new StringTokenizer(br.readLine());
+        	for(int j=0;j<M;j++) {
+        		array1[i][j]=Integer.parseInt(st2.nextToken());
+        	}
+        }
+        int array2[][]=new int[N][M];
+        for(int i=0;i<N;i++) {		//두번째 배열 만들면서 +첫번째 배열
+        	StringTokenizer st3=new StringTokenizer(br.readLine());
+        	for(int j=0;j<M;j++) {
+        		array2[i][j]=Integer.parseInt(st3.nextToken())+array1[i][j];
+        	}
+        }
+        for(int i=0;i<N;i++) {
+        	for(int j=0;j<M;j++) {
+        		bw.write(array2[i][j]+" ");
+        	}
+        	bw.newLine();
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+2.<그림 1>과 같이 9×9 격자판에 쓰여진 81개의 자연수 또는 0이 주어질 때, 이들 중 최댓값을 찾고 그 최댓값이 몇 행 몇 열에 위치한 수인지 구하는 프로그램을 작성하시오.
+예를 들어, 다음과 같이 81개의 수가 주어지면
+
+ 	1열	2열	3열	4열	5열	6열	7열	8열	9열
+1행	3	23	85	34	17	74	25	52	65
+2행	10	7	39	42	88	52	14	72	63
+3행	87	42	18	78	53	45	18	84	53
+4행	34	28	64	85	12	16	75	36	55
+5행	21	77	45	35	28	75	90	76	1
+6행	25	87	65	15	28	11	37	28	74
+7행	65	27	75	41	7	89	78	64	39
+8행	47	47	70	45	23	65	3	41	44
+9행	87	13	82	38	31	12	29	29	80
+
+이들 중 최댓값은 90이고, 이 값은 5행 7열에 위치한다.
+첫째 줄에 최댓값을 출력하고, 둘째 줄에 최댓값이 위치한 행 번호와 열 번호를 빈칸을 사이에 두고 차례로 출력한다. 최댓값이 두 개 이상인 경우 그 중 한 곳의 위치를 출력한다.
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N=9;
+        int M=9;
+        
+        int array[][]=new int[N][M];  //9x9 배열만들고
+        for(int i=0;i<N;i++) {		
+        	StringTokenizer st=new StringTokenizer(br.readLine());
+        	for(int j=0;j<M;j++) {
+        		array[i][j]=Integer.parseInt(st.nextToken());
+        	}
+        }
+        int a=0; //행 저장할곳
+        int b=0; //열 저장할곳
+        int maxNum=0;//최댓값저장할곳
+        
+        for(int i=0;i<N;i++) {
+        	for(int j=0;j<M;j++) {
+        		if(maxNum<=array[i][j]) {
+        			maxNum=array[i][j];
+        			a=i+1;
+        			b=j+1;
+        		}
+        	}
+        }
+        bw.write(maxNum+"\n");
+        bw.write(a+" "+b);
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+3.아직 글을 모르는 영석이가 벽에 걸린 칠판에 자석이 붙어있는 글자들을 붙이는 장난감을 가지고 놀고 있다. 
+이 장난감에 있는 글자들은 영어 대문자 ‘A’부터 ‘Z’, 영어 소문자 ‘a’부터 ‘z’, 숫자 ‘0’부터 ‘9’이다. 영석이는 칠판에 글자들을 수평으로 일렬로 붙여서 단어를 만든다. 다시 그 아래쪽에 글자들을 붙여서 또 다른 단어를 만든다. 이런 식으로 다섯 개의 단어를 만든다. 아래 그림 1은 영석이가 칠판에 붙여 만든 단어들의 예이다. 
+
+A A B C D D
+a f z z 
+0 9 1 2 1
+a 8 E W g 6
+P 5 h 3 k x
+<그림 1>
+
+한 줄의 단어는 글자들을 빈칸 없이 연속으로 나열해서 최대 15개의 글자들로 이루어진다. 또한 만들어진 다섯 개의 단어들의 글자 개수는 서로 다를 수 있다. 
+심심해진 영석이는 칠판에 만들어진 다섯 개의 단어를 세로로 읽으려 한다. 세로로 읽을 때, 각 단어의 첫 번째 글자들을 위에서 아래로 세로로 읽는다. 다음에 두 번째 글자들을 세로로 읽는다.
+이런 식으로 왼쪽에서 오른쪽으로 한 자리씩 이동 하면서 동일한 자리의 글자들을 세로로 읽어 나간다. 위의 그림 1의 다섯 번째 자리를 보면 두 번째 줄의 다섯 번째 자리의 글자는 없다. 
+이런 경우처럼 세로로 읽을 때 해당 자리의 글자가 없으면, 읽지 않고 그 다음 글자를 계속 읽는다. 그림 1의 다섯 번째 자리를 세로로 읽으면 D1gk로 읽는다. 
+그림 1에서 영석이가 세로로 읽은 순서대로 글자들을 공백 없이 출력하면 다음과 같다:
+Aa0aPAf985Bz1EhCz2W3D1gkD6x
+칠판에 붙여진 단어들이 주어질 때, 영석이가 세로로 읽은 순서대로 글자들을 출력하는 프로그램을 작성하시오.
+
+1)continue;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N=5;
+        String array[][] = new String[N][]; 
+        int max=0;
+        for(int i=0;i<N;i++) {
+        	String line=br.readLine();
+        	max=max<=line.length()?line.length():max; //가장 긴 문자열의 크기 찾기
+        	array[i]=line.split("");
+        }
+       
+	    for(int j=0;j<max;j++) {
+	    	for(int i=0;i<N;i++) {
+		    	if(j>=array[i].length) {	//j가 행의 크기보다 크면 다음행으로
+		    		continue;
+		    	}else {
+		    		bw.write(array[i][j]);
+		    	}
+		     }
+	    }
+	     
+        
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+2)출력문 간단히
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N=5;
+        String array[][] = new String[N][]; 
+        int max=0;
+        for(int i=0;i<N;i++) {
+        	String line=br.readLine();
+        	max=max<=line.length()?line.length():max; //가장 긴 문자열의 크기 찾기
+        	array[i]=line.split("");
+        }
+       
+	    for(int j=0;j<max;j++) {
+	    	for(int i=0;i<N;i++) {
+		    	if(j<array[i].length)  {                                         //다른부분
+		    		bw.write(array[i][j]);
+		    	  }
+		     }
+	    }
+	     
+        
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+4.가로, 세로의 크기가 각각 100인 정사각형 모양의 흰색 도화지가 있다. 이 도화지 위에 가로, 세로의 크기가 각각 10인 정사각형 모양의 검은색 색종이를 색종이의 변과 도화지의 변이 평행하도록 붙인다.
+이러한 방식으로 색종이를 한 장 또는 여러 장 붙인 후 색종이가 붙은 검은 영역의 넓이를 구하는 프로그램을 작성하시오.
+예를 들어 흰색 도화지 위에 세 장의 검은색 색종이를 그림과 같은 모양으로 붙였다면 검은색 영역의 넓이는 260이 된다.
+
+첫째 줄에 색종이의 수가 주어진다. 이어 둘째 줄부터 한 줄에 하나씩 색종이를 붙인 위치가 주어진다.
+색종이를 붙인 위치는 두 개의 자연수로 주어지는데 첫 번째 자연수는 색종이의 왼쪽 변과 도화지의 왼쪽 변 사이의 거리이고,
+두 번째 자연수는 색종이의 아래쪽 변과 도화지의 아래쪽 변 사이의 거리이다. 색종이의 수는 100 이하이며, 색종이가 도화지 밖으로 나가는 경우는 없다
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        boolean[][] plane = new boolean[100][100]; // 가정: 평면의 크기가 100x100이라고 가정
+
+        for (int i = 0; i < N; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+
+            // 색종이가 놓이는 구역을 true로 마킹
+            for (int dx = 0; dx < 10; dx++) {
+                for (int dy = 0; dy < 10; dy++) {
+                    plane[x + dx][y + dy] = true;
+                }
+            }
+        }
+
+        // 전체 평면에서 마킹된 구역의 수를 계산
+        int totalArea = 0;
+        for (int i = 0; i < 100; i++) {
+            for (int j = 0; j < 100; j++) {
+                if (plane[i][j]) totalArea++;
+            }
+        }
+
+        bw.write(String.valueOf(totalArea));
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
