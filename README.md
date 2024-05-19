@@ -15,6 +15,8 @@ BeakJoon
 
     -단계별 풀어보기 8단계 3-2(	for (int coin : coins) )(배열 for문)
 
+    -단계별 풀어보기 9단계 3-2(배열대신 StringBuilder 활용-append)
+
 *내문제점?
   
     -배열을 너무 좋아함
