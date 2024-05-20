@@ -109,3 +109,39 @@ public class Main {
 		br.close();
 	}
 }
+
+2)GPT형님....
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        int N = Integer.parseInt(br.readLine());
+        StringBuilder result = new StringBuilder();
+
+        //for문에 i*i -> N의 제곱근 이하의 수들만 검사해도 모든 소인수를 찾을 수 있기 때문에 성능 최적화
+	//그럼 소수는 ?? 그건 아래에 있음
+        for (int i = 2; i * i <= N; i++) {	//for문안에 while을 넣음으로써 위에 내가 짠 코드처럼 i를 1로 되돌릴 필요도 없음 ㅠ
+            while (N % i == 0) {
+                result.append(i).append("\n");
+                N /= i;
+            }
+        }
+
+	//소수를 위한 
+        if (N > 1) {
+            result.append(N).append("\n");
+        }
+        
+        bw.write(result.toString());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
