@@ -1,0 +1,78 @@
+4.주어진 수 N개 중에서 소수가 몇 개인지 찾아서 출력하는 프로그램을 작성하시오.
+
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N=Integer.parseInt(br.readLine());                  //몇개의 수?
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int count=0;                                            //소수의 개수
+        for(int i=0;i<N;i++) {
+        	int k=Integer.parseInt(st.nextToken());
+        	int sosu=0;                                          //약수의갯수 이름을 잘못지엇네;;
+        	for(int j=2;j<=k;j++) {
+        		if(k%j==0) {                                       //2~자기자신까지 나눳을때 나머지가 0인 -> 약수의 개수
+        			sosu++;
+        		}
+        	}
+        	if(sosu==1) {                                        //1은 약수가 아니기에 for문을 2~자기자신까지 설정
+        		count++;
+        	}
+        }
+        bw.write(String.valueOf(count));
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+5.자연수 M과 N이 주어질 때 M이상 N이하의 자연수 중 소수인 것을 모두 골라 이들 소수의 합과 최솟값을 찾는 프로그램을 작성하시오.
+예를 들어 M=60, N=100인 경우 60이상 100이하의 자연수 중 소수는 61, 67, 71, 73, 79, 83, 89, 97 총 8개가 있으므로, 이들 소수의 합은 620이고, 최솟값은 61이 된다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int M=Integer.parseInt(br.readLine());
+        int N=Integer.parseInt(br.readLine());
+        int sum =0;	//소수들의 합	
+        int minss=N;  //가장 작은 소수->N으로 설정한 이유는 최소값을 구하기 위함
+        for(int i=M;i<=N;i++) {
+        	int ys=0;
+        	for(int j=2;j<=i;j++) {
+        		if(i%j==0) {
+        			ys++;
+        		}
+        	}
+        	if(ys==1) {
+        		sum+=i;                 
+        		minss=minss>i?i:minss;
+        	}
+        }
+        if(sum==0) {
+        	bw.write("-1");
+        }else {
+        	bw.write(sum+"\n"+minss);
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+6.정수 N이 주어졌을 때, 소인수분해하는 프로그램을 작성하시오.
