@@ -1,0 +1,84 @@
+2.어떤 자연수 N이 있을 때, 그 자연수 N의 분해합은 N과 N을 이루는 각 자리수의 합을 의미한다. 어떤 자연수 M의 분해합이 N인 경우, M을 N의 생성자라 한다. 예를 들어, 245의 분해합은 256(=245+2+4+5)이 된다.
+따라서 245는 256의 생성자가 된다. 물론, 어떤 자연수의 경우에는 생성자가 없을 수도 있다. 반대로, 생성자가 여러 개인 자연수도 있을 수 있다.
+자연수 N이 주어졌을 때, N의 가장 작은 생성자를 구해내는 프로그램을 작성하시오.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		
+		int N = Integer.parseInt(br.readLine());
+		int result =N;
+		for(int i=1;i<N;i++) {
+			int sum=i;
+			int t=i;
+			while(t>0) {
+				sum+=t%10;
+				t /= 10;
+				
+			}
+			if(N==sum) {
+				result=result>i?i:result;
+			}
+		}
+		if(result==N) {
+			result=0;
+		}
+		bw.write(String.valueOf(result));
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
+
+3.수현이는 4차 산업혁명 시대에 살고 있는 중학생이다. 코로나 19로 인해, 수현이는 버추얼 학교로 버추얼 출석해 버추얼 강의를 듣고 있다.
+수현이의 버추얼 선생님은 문자가 2개인 연립방정식을 해결하는 방법에 대해 강의하고,다음과 같은 문제를 숙제로 냈다.
+다음 연립방정식에서 
+x와 
+y의 값을 계산하시오.
+ 
+[ ax+by=c  
+  dx+ey=f  ] 
+  
+4차 산업혁명 시대에 숙제나 하고 앉아있는 것보다 버추얼 친구들을 만나러 가는 게 더 가치있는 일이라고 생각했던 수현이는 이런 연립방정식을 풀 시간이 없었다. 
+다행히도, 버추얼 강의의 숙제 제출은 인터넷 창의 빈 칸에 수들을 입력하는 식이다. 
+각 칸에는 -999 이상 999 이하의 정수만 입력할 수 있다. 수현이가 버추얼 친구들을 만나러 버추얼 세계로 떠날 수 있게 도와주자.
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st=new StringTokenizer(br.readLine());
+		
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		int c = Integer.parseInt(st.nextToken());
+		int d = Integer.parseInt(st.nextToken());
+		int e = Integer.parseInt(st.nextToken());
+		int f = Integer.parseInt(st.nextToken());
+		//ax+by=c dx+ey=f
+		for(int x=-999;x<=999;x++) {
+			for(int y=-999;y<=999;y++) {
+				if(a*x+b*y==c && d*x+e*y==f) {
+					bw.write(x+" "+y);
+				}
+			}
+		}
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
