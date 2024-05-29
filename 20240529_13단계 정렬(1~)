@@ -1,0 +1,270 @@
+1.N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로그램을 작성하시오.
+첫째 줄에 수의 개수 N(1 ≤ N ≤ 1,000)이 주어진다. 둘째 줄부터 N개의 줄에는 수가 주어진다. 이 수는 절댓값이 1,000보다 작거나 같은 정수이다. 수는 중복되지 않는다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		int N = Integer.parseInt(br.readLine());
+		int array[]=new int[N];
+		for(int i=0;i<N;i++) {
+			array[i]=Integer.parseInt(br.readLine());
+		}
+		
+		for(int i=0;i<N-1;i++) {  //큰 수를 맨 뒤로 보내는 방식생각  ------>Arrays.sort(array)로 이중 for문 대체가
+			for(int j=i+1;j<N;j++) {
+				if(array[i]>array[j]) {
+					int temp=array[i];
+					array[i]=array[j];
+					array[j]=temp;
+				}
+			}
+			
+		}
+		for(int i=0;i<N;i++) {
+			bw.write(array[i]+"\n");
+		}
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
+
+2.어떤 수들이 있을 때, 그 수들을 대표하는 값으로 가장 흔하게 쓰이는 것은 평균이다. 평균은 주어진 모든 수의 합을 수의 개수로 나눈 것이다.
+예를 들어 10, 40, 30, 60, 30의 평균은 (10 + 40 + 30 + 60 + 30) / 5 = 170 / 5 = 34가 된다.
+평균 이외의 또 다른 대표값으로 중앙값이라는 것이 있다. 중앙값은 주어진 수를 크기 순서대로 늘어 놓았을 때 가장 중앙에 놓인 값이다. 예를 들어 10, 40, 30, 60, 30의 경우, 크기 순서대로 늘어 놓으면
+
+10 30 30 40 60
+
+이 되고 따라서 중앙값은 30이 된다.
+다섯 개의 자연수가 주어질 때 이들의 평균과 중앙값을 구하는 프로그램을 작성하시오.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int array[]=new int[5];
+		int sum=0;
+		
+		for(int i=0;i<5;i++) {
+			int M=Integer.parseInt(br.readLine());
+			array[i] = M;
+			sum+=M;
+			
+		}
+		
+		Arrays.sort(array);
+		bw.write((sum/5)+"\n"+array[2]);
+	
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
+
+3.2022 연세대학교 미래캠퍼스 슬기로운 코딩생활에 N명의 학생들이 응시했다.
+이들 중 점수가 가장 높은 k명은 상을 받을 것이다. 이 때, 상을 받는 커트라인이 몇 점인지 구하라.
+커트라인이란 상을 받는 사람들 중 점수가 가장 가장 낮은 사람의 점수를 말한다. 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringTokenizer st= new StringTokenizer(br.readLine());
+		int N=Integer.parseInt(st.nextToken());
+		int M=Integer.parseInt(st.nextToken());
+		int array[]=new int[N];
+		StringTokenizer st2=new StringTokenizer(br.readLine());
+		for(int i=0;i<N;i++) {
+			array[i]=Integer.parseInt(st2.nextToken());
+		}
+		Arrays.sort(array);
+		bw.write(String.valueOf(array[N-M]));
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
+
+4.N개의 수가 주어졌을 때, 이를 오름차순으로 정렬하는 프로그램을 작성하시오.
+입력
+첫째 줄에 수의 개수 N(1 ≤ N ≤ 1,000,000)이 주어진다. 둘째 줄부터 N개의 줄에는 수가 주어진다. 이 수는 절댓값이 1,000,000보다 작거나 같은 정수이다. 수는 중복되지 않는다.
+(1번이랑 같은데 뭐가 다른거지????)
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		int N = Integer.parseInt(br.readLine());
+		int array[]=new int[N];
+		for(int i=0;i<N;i++) {
+			array[i]=Integer.parseInt(br.readLine());
+		}
+		Arrays.sort(array);
+		
+		for(int i=0;i<N;i++) {
+			bw.write(array[i]+"\n");
+		}
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+}
+
+2)이게 뭐고??
+import java.io.*;
+
+public class Main {
+  public static void main(String[] args) throws IOException {
+    FastIO io = new FastIO();
+    int n = io.nextInt(), maxRange = 1_000_000;
+    boolean[] exists = new boolean[maxRange * 2 + 2];
+    for (int i = 0; i < n; i++) {
+      exists[io.nextInt() + maxRange] = true;
+    }
+
+    for (int i = 0, count = 0; i < exists.length & count < n; i++) {
+      if (exists[i]) {
+        io.writelnInt(i - maxRange);
+        ++count;
+      }
+    }
+    io.flushAndClose();
+  }
+
+  private static class FastIO {
+
+    private static final int BUFFER_SIZE = 1 << 16;
+    private final DataInputStream in;
+    private final DataOutputStream out;
+    private final byte[] inBuffer;
+    private final byte[] outBuffer;
+    private final byte[] bytebuffer;
+
+    private int inBufferPointer, bytesRead;
+    private int outBufferPointer;
+
+    private FastIO() {
+      in = new DataInputStream(System.in);
+      out = new DataOutputStream(System.out);
+      inBuffer = new byte[BUFFER_SIZE];
+      outBuffer = new byte[BUFFER_SIZE];
+      bytesRead = outBufferPointer = 0;
+      bytebuffer = new byte[10];
+    }
+
+    private int nextInt() throws IOException {
+      byte c = read();
+      while (c <= ' ') {
+        c = read();
+      }
+
+      boolean neg = (c == '-');
+      if (neg) {
+        c = read();
+      }
+
+      int ret = 0;
+      do {
+        ret = ret * 10 + c - '0';
+      } while ((c = read()) >= '0' && c <= '9');
+
+      return neg ? -ret : ret;
+    }
+
+    private byte read() throws IOException {
+      if (inBufferPointer == bytesRead) {
+        fillBuffer();
+      }
+      return inBuffer[inBufferPointer++];
+    }
+
+    private void fillBuffer() throws IOException {
+      bytesRead = in.read(inBuffer, inBufferPointer = 0, BUFFER_SIZE);
+      if (bytesRead == -1) {
+        inBuffer[0] = -1;
+      }
+    }
+
+    private void writelnInt(int i) {
+      writeInt(i);
+      writeBuffer((byte) '\n');
+    }
+
+    private void writeInt(int i) {
+      if (i == 0) {
+        writeBuffer((byte) '0');
+        return;
+      }
+
+      if (i < 0) {
+        writeBuffer((byte) '-');
+        i = -i;
+      }
+
+      int index = 0;
+      while (i > 0) {
+        bytebuffer[index++] = (byte) ((i % 10) + '0');
+        i /= 10;
+      }
+
+      while (index-- > 0) {
+        writeBuffer(bytebuffer[index]);
+      }
+    }
+
+    private void writeBuffer(byte b) {
+      if (outBufferPointer == outBuffer.length) {
+        flushBuffer();
+      }
+      outBuffer[outBufferPointer++] = b;
+    }
+
+    private void flushBuffer() {
+      if (outBufferPointer != 0) {
+        try {
+          out.write(outBuffer, 0, outBufferPointer);
+        } catch (Exception ignored) {
+        }
+      }
+      outBufferPointer = 0;
+    }
+
+    private void flushAndClose() throws IOException {
+      flushBuffer();
+      close();
+    }
+
+    private void close() throws IOException {
+      in.close();
+      out.close();
+    }
+  }
+}
+
