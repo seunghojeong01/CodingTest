@@ -215,3 +215,56 @@ public class Main {
 Xi를 좌표 압축한 결과 X'i의 값은 Xi > Xj를 만족하는 서로 다른 좌표 Xj의 개수와 같아야 한다.
 X1, X2, ..., XN에 좌표 압축을 적용한 결과 X'1, X'2, ..., X'N를 출력해보자.
 //뭔말인지 모르겠는걸 ;; -> 중복제거한 후 그 값보다 작은 값들의 수 구하라는 듯?
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    static class Element implements Comparable<Element>{
+        int val, index;
+        public Element (int val, int index) {
+            this.val = val;
+            this.index = index;
+        }
+        @Override
+        public int compareTo(Element o) {
+            return Integer.compare(this.val, o.val);
+        }
+    }
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        
+        int N = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        Element[] el = new Element[N];
+        
+        for(int i = 0; i < N; i++){
+            el[i] = new Element(Integer.parseInt(st.nextToken()), i);
+        }
+
+        Arrays.sort(el);
+        
+        int[] result = new int[N];
+        HashMap<Integer, Integer> rankMap = new HashMap<>();
+        int rank = 0;
+        for(int i = 0; i < N; i++) {
+            if (!rankMap.containsKey(el[i].val)) {
+                rankMap.put(el[i].val, rank);
+                rank++;
+            }
+            result[el[i].index] = rankMap.get(el[i].val);
+        }
+        for(int re: result) {
+            bw.write(re + " ");
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
