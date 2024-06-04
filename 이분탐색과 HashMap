@@ -41,9 +41,11 @@ public class BinarySearch {
 }
 
 2. HaspMap
--키와 값의 쌍을 저장하며, 순서는 보장되지 않는다.  시간 복잡도가 평균적으로 O(1)
+-키와 값의 쌍을 저장하며, 순서는 보장되지 않는다.  시간 복잡도가 평균적으로 O(1) , 중복키를 허용하지 않는다.
 TreeMap
 -TreeMap은 키가 정렬된 상태로 저장되는 Map의 구현체. 내부적으로 레드-블랙 트리를 사용하여 요소를 저장. TreeMap은 키에 대한 정렬이 필요할 때 유용하며, 모든 연산의 시간 복잡도는 O(log n)
 LinkedHashMap
 -HashMap과 유사하지만, 삽입된 순서유지
 
+숫자 나온 빈도 수 체크
+ map.put(k, map.getOrDefault(k, 0) + 1);  // 키의 빈도를 증가시킴  
