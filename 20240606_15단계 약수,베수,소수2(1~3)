@@ -1,0 +1,188 @@
+1.두 자연수 A와 B에 대해서, A의 배수이면서 B의 배수인 자연수를 A와 B의 공배수라고 한다. 이런 공배수 중에서 가장 작은 수를 최소공배수라고 한다. 예를 들어, 6과 15의 공배수는 30, 60, 90등이 있으며,
+최소 공배수는 30이다.두 자연수 A와 B가 주어졌을 때, A와 B의 최소공배수를 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 테스트 케이스의 개수 T(1 ≤ T ≤ 1,000)가 주어진다. 둘째 줄부터 T개의 줄에 걸쳐서 A와 B가 주어진다. (1 ≤ A, B ≤ 45,000)
+
+출력
+첫째 줄부터 T개의 줄에 A와 B의 최소공배수를 입력받은 순서대로 한 줄에 하나씩 출력한다.
+1)
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+        int T=Integer.parseInt(br.readLine());
+        for(int i=0;i<T;i++) {
+        	StringTokenizer st= new StringTokenizer(br.readLine());
+        	int a=Integer.parseInt(st.nextToken());
+        	int b=Integer.parseInt(st.nextToken());
+        	ArrayList<Integer> arr=new ArrayList<Integer>();
+        	for(int j=1;j<=a/2;j++) {  //a의 약수들 구하기
+        		if(a%j==0) {
+        			arr.add(j);
+        			arr.add(a/j);
+        		}
+        	}
+        	int result=1;
+        	for(int j:arr) {  //최대공약수 구하기
+        		if(b%j==0) {
+        			result=result>j?result:j;
+        		}
+        	}
+        	bw.write(((a/result)*b)+"\n");
+        
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+2)유클리드 호제법
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int T = Integer.parseInt(br.readLine());
+        for (int i = 0; i < T; i++) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+
+            int gcd = gcd(a, b);
+            int result = a * b / gcd; // 최소공배수 계산
+
+            bw.write(result + "\n");
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+    // 유클리드 호제법을 사용한 최대공약수 계산 메서드
+    public static int gcd(int a, int b) {
+        while (b != 0) {
+            int temp = a % b;
+            a = b;
+            b = temp;
+        }
+        return a;
+    }
+}
+
+2.정수 B에 0보다 큰 정수인 N을 곱해 정수 A를 만들 수 있다면, A는 B의 배수이다.
+
+예:
+10은 5의 배수이다 (5*2 = 10)
+10은 10의 배수이다(10*1 = 10)
+6은 1의 배수이다(1*6 = 6)
+20은 1, 2, 4,5,10,20의 배수이다.
+다른 예:
+2와 5의 최소공배수는 10이고, 그 이유는 2와 5보다 작은 공배수가 없기 때문이다.
+10과 20의 최소공배수는 20이다.
+5와 3의 최소공배수는 15이다.
+당신은 두 수에 대하여 최소공배수를 구하는 프로그램을 작성 하는 것이 목표이다.
+
+입력
+한 줄에 두 정수 A와 B가 공백으로 분리되어 주어진다.
+50%의 입력 중 A와 B는 1000(103)보다 작다. 다른 50%의 입력은 1000보다 크고 100000000(108)보다 작다.
+추가: 큰 수 입력에 대하여 변수를 64비트 정수로 선언하시오. C/C++에서는 long long int를 사용하고, Java에서는 long을 사용하시오.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		long a = Long.parseLong(st.nextToken());
+		long b = Long.parseLong(st.nextToken());
+
+		long gcd = gcd(a, b);
+		long result = a * b / gcd; // 최소공배수 계산
+
+		bw.write(String.valueOf(result));
+
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+
+	// 유클리드 호제법을 사용한 최대공약수 계산 메서드
+	public static long gcd(long a, long b) {
+		while (b != 0) {
+			long temp = a % b;
+			a = b;
+			b = temp;
+		}
+		return a;
+	}
+}
+
+3.분수 A/B는 분자가 A, 분모가 B인 분수를 의미한다. A와 B는 모두 자연수라고 하자.
+두 분수의 합 또한 분수로 표현할 수 있다. 두 분수가 주어졌을 때, 그 합을 기약분수의 형태로 구하는 프로그램을 작성하시오. 기약분수란 더 이상 약분되지 않는 분수를 의미한다.
+
+입력
+첫째 줄과 둘째 줄에, 각 분수의 분자와 분모를 뜻하는 두 개의 자연수가 순서대로 주어진다. 입력되는 네 자연수는 모두 30,000 이하이다.
+
+출력
+첫째 줄에 구하고자 하는 기약분수의 분자와 분모를 뜻하는 두 개의 자연수를 빈 칸을 사이에 두고 순서대로 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int a = Integer.parseInt(st.nextToken());
+		int b = Integer.parseInt(st.nextToken());
+		st=new StringTokenizer(br.readLine());
+		int c = Integer.parseInt(st.nextToken());
+		int d = Integer.parseInt(st.nextToken());
+		int gcd = gcd(b, d);
+		int denominator = b * d / gcd; // 최소공배수 계산
+		int nurmerator = a*(denominator/b) + c*(denominator/d);
+		int gcd2=gcd(denominator,nurmerator);
+		bw.write(nurmerator/gcd2+" "+denominator/gcd2);
+
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+
+	// 유클리드 호제법을 사용한 최대공약수 계산 메서드
+	public static int gcd(int a, int b) {
+		while (b != 0) {
+			int temp = a % b;
+			a = b;
+			b = temp;
+		}
+		return a;
+	}
+}
