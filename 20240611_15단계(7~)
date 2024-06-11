@@ -48,4 +48,120 @@ public class Main {
  
 }
 
-8.
+8.골드바흐의 추측: 2보다 큰 짝수는 두 소수의 합으로 나타낼 수 있다.
+짝수 N을 두 소수의 합으로 나타내는 표현을 골드바흐 파티션이라고 한다. 짝수 N이 주어졌을 때, 골드바흐 파티션의 개수를 구해보자. 두 소수의 순서만 다른 것은 같은 파티션이다.
+
+입력
+첫째 줄에 테스트 케이스의 개수 T (1 ≤ T ≤ 100)가 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있고, 정수 N은 짝수이고, 2 < N ≤ 1,000,000을 만족한다.
+
+출력
+각각의 테스트 케이스마다 골드바흐 파티션의 수를 출력한다.
+1)시간초과
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		int N = Integer.parseInt(br.readLine());
+		for (int i = 0; i < N; i++) {
+			int M = Integer.parseInt(br.readLine());
+			int result = 0;
+			if (M == 4) {
+                result = 1; // 4는 2 + 2 딱 하나
+            } else {
+                for (int j = 2; j <= M / 2; j++) {//파티션 중복 불가->M/2
+                    if (isPrime(j) && isPrime(M - j)) {
+                        result++;
+                    }
+                }
+            }
+            bw.write(result + "\n");
+		}
+
+		bw.flush();
+		bw.close();
+		br.close();
+	}
+
+	public static boolean isPrime(int num) {
+		if (num <= 1)
+			return false;
+		if (num <= 3)
+			return true;
+		if (num % 2 == 0 || num % 3 == 0)
+			return false;
+		for (int i = 5; i * i <= num; i += 6) {
+			if (num % i == 0 || num % (i + 2) == 0)
+				return false;
+		}
+		return true;
+	}
+
+}
+
+2)아래의 코드는 미리 소수인지 판별해 놓기 때문에 소수판별의 중복을 줄여 시간복잡도를 줄일 수 있다고 함.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+
+        // 최대 입력 값까지 소수를 미리 구해놓습니다.
+        int maxM = 1000000; // 예를 들어 최대값을 1,000,000로 가정
+        boolean[] isPrime = new boolean[maxM + 1];
+        List<Integer> primes = new ArrayList<>();
+        sieveOfEratosthenes(maxM, isPrime, primes);
+
+        for (int i = 0; i < N; i++) {
+            int M = Integer.parseInt(br.readLine());
+            int result = 0;
+            if (M == 4) {
+                result = 1; // 4는 2 + 2 하나의 경우만 있습니다.
+            } else {
+                for (int j = 0; j < primes.size() && primes.get(j) <= M / 2; j++) {
+                    int prime = primes.get(j);
+                    if (isPrime[M - prime]) {
+                        result++;
+                    }
+                }
+            }
+            bw.write(result + "\n");
+        }
+
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+    public static void sieveOfEratosthenes(int max, boolean[] isPrime, List<Integer> primes) {
+        for (int i = 2; i <= max; i++) {
+            isPrime[i] = true;
+        }
+        for (int i = 2; i * i <= max; i++) {
+            if (isPrime[i]) {
+                for (int j = i * i; j <= max; j += i) {
+                    isPrime[j] = false;
+                }
+            }
+        }
+        for (int i = 2; i <= max; i++) {
+            if (isPrime[i]) {
+                primes.add(i);
+            }
+        }
+    }
+}
+
