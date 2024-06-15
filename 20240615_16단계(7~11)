@@ -1,0 +1,362 @@
+7.N장의 카드가 있다. 각각의 카드는 차례로 1부터 N까지의 번호가 붙어 있으며, 1번 카드가 제일 위에, N번 카드가 제일 아래인 상태로 순서대로 카드가 놓여 있다.
+이제 다음과 같은 동작을 카드가 한 장 남을 때까지 반복하게 된다. 우선, 제일 위에 있는 카드를 바닥에 버린다. 그 다음, 제일 위에 있는 카드를 제일 아래에 있는 카드 밑으로 옮긴다.
+예를 들어 N=4인 경우를 생각해 보자. 카드는 제일 위에서부터 1234 의 순서로 놓여있다. 1을 버리면 234가 남는다. 여기서 2를 제일 아래로 옮기면 342가 된다.
+3을 버리면 42가 되고, 4를 밑으로 옮기면 24가 된다. 마지막으로 2를 버리고 나면, 남는 카드는 4가 된다.
+N이 주어졌을 때, 제일 마지막에 남게 되는 카드를 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 정수 N(1 ≤ N ≤ 500,000)이 주어진다.
+
+출력
+첫째 줄에 남게 되는 카드의 번호를 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        Queue<Integer> qu=new ArrayDeque<Integer>();
+        for(int i=1;i<=N;i++) {
+        	qu.add(i);
+        }
+        while(qu.size()!=1) {
+        	qu.remove();
+        	qu.add(qu.remove());
+        }
+        bw.write(String.valueOf(qu.poll()));
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+8.요세푸스 문제는 다음과 같다.
+
+1번부터 N번까지 N명의 사람이 원을 이루면서 앉아있고, 양의 정수 K(≤ N)가 주어진다. 이제 순서대로 K번째 사람을 제거한다.
+한 사람이 제거되면 남은 사람들로 이루어진 원을 따라 이 과정을 계속해 나간다. 이 과정은 N명의 사람이 모두 제거될 때까지 계속된다. 
+원에서 사람들이 제거되는 순서를 (N, K)-요세푸스 순열이라고 한다. 예를 들어 (7, 3)-요세푸스 순열은 <3, 6, 2, 7, 5, 1, 4>이다.
+N과 K가 주어지면 (N, K)-요세푸스 순열을 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 N과 K가 빈 칸을 사이에 두고 순서대로 주어진다. (1 ≤ K ≤ N ≤ 1,000)
+
+출력
+예제와 같이 요세푸스 순열을 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K= Integer.parseInt(st.nextToken());
+        Queue<Integer> qu=new ArrayDeque<Integer>();
+        for(int i=1;i<=N;i++) {
+        	qu.add(i);
+        }
+        StringBuilder sb=new StringBuilder();
+        sb.append("<");
+        while(qu.size() !=1) {
+        	for(int i=0;i<K-1;i++) {
+        		qu.add(qu.poll());
+        	}
+        	sb.append(qu.poll()+", ");
+        }
+        sb.append(qu.poll()+">");
+        bw.write(sb.toString().trim());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+9.정수를 저장하는 덱을 구현한 다음, 입력으로 주어지는 명령을 처리하는 프로그램을 작성하시오.
+명령은 총 여덟 가지이다.
+
+1 X: 정수 X를 덱의 앞에 넣는다. (1 ≤ X ≤ 100,000)
+2 X: 정수 X를 덱의 뒤에 넣는다. (1 ≤ X ≤ 100,000)
+3: 덱에 정수가 있다면 맨 앞의 정수를 빼고 출력한다. 없다면 -1을 대신 출력한다.
+4: 덱에 정수가 있다면 맨 뒤의 정수를 빼고 출력한다. 없다면 -1을 대신 출력한다.
+5: 덱에 들어있는 정수의 개수를 출력한다.
+6: 덱이 비어있으면 1, 아니면 0을 출력한다.
+7: 덱에 정수가 있다면 맨 앞의 정수를 출력한다. 없다면 -1을 대신 출력한다.
+8: 덱에 정수가 있다면 맨 뒤의 정수를 출력한다. 없다면 -1을 대신 출력한다.
+입력
+첫째 줄에 명령의 수 N이 주어진다. (1 ≤ N ≤ 1,000,000)
+
+둘째 줄부터 N개 줄에 명령이 하나씩 주어진다.
+
+출력을 요구하는 명령은 하나 이상 주어진다.
+
+출력
+출력을 요구하는 명령이 주어질 때마다 명령의 결과를 한 줄에 하나씩 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        Deque<Integer> qu=new ArrayDeque<Integer>();
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<N;i++) {
+        	String S=br.readLine();
+        	if(S.startsWith("1")) {
+        		qu.addFirst(Integer.parseInt(S.split(" ")[1]));
+        	}else if(S.startsWith("2")) {
+        		qu.addLast(Integer.parseInt(S.split(" ")[1]));
+        	}else if(S.equals("3")) {
+        		if(qu.size()==0) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.poll()+"\n");
+        		}
+        	}else if(S.equals("4")) {
+        		if(qu.size()==0) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.pollLast()+"\n");
+        		}
+        	}else if(S.equals("5")) {
+        		sb.append(qu.size()+"\n");
+        	}else if(S.equals("6")) {
+        		if(qu.isEmpty()) {
+        			sb.append(1+"\n");
+        		}else {
+        			sb.append(0+"\n");
+        		}
+        	}else if(S.equals("7")) {
+        		if(qu.isEmpty()) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.peek()+"\n");
+        		}
+        	}else if(S.equals("8")) {
+        		if(qu.isEmpty()) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.peekLast()+"\n");
+        		}
+        	}
+        }
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+10.1번부터 N번까지 N개의 풍선이 원형으로 놓여 있고. i번 풍선의 오른쪽에는 i+1번 풍선이 있고, 왼쪽에는 i-1번 풍선이 있다. 단, 1번 풍선의 왼쪽에 N번 풍선이 있고, N번 풍선의 오른쪽에 1번 풍선이 있다.
+각 풍선 안에는 종이가 하나 들어있고, 종이에는 -N보다 크거나 같고, N보다 작거나 같은 정수가 하나 적혀있다. 이 풍선들을 다음과 같은 규칙으로 터뜨린다.
+우선, 제일 처음에는 1번 풍선을 터뜨린다. 다음에는 풍선 안에 있는 종이를 꺼내어 그 종이에 적혀있는 값만큼 이동하여 다음 풍선을 터뜨린다. 
+양수가 적혀 있을 경우에는 오른쪽으로, 음수가 적혀 있을 때는 왼쪽으로 이동한다. 이동할 때에는 이미 터진 풍선은 빼고 이동한다.
+예를 들어 다섯 개의 풍선 안에 차례로 3, 2, 1, -3, -1이 적혀 있었다고 하자. 
+이 경우 3이 적혀 있는 1번 풍선, -3이 적혀 있는 4번 풍선, -1이 적혀 있는 5번 풍선, 1이 적혀 있는 3번 풍선, 2가 적혀 있는 2번 풍선의 순서대로 터지게 된다.
+
+입력
+첫째 줄에 자연수 N(1 ≤ N ≤ 1,000)이 주어진다. 다음 줄에는 차례로 각 풍선 안의 종이에 적혀 있는 수가 주어진다. 종이에 0은 적혀있지 않다.
+
+출력
+첫째 줄에 터진 풍선의 번호를 차례로 나열한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Deque<Integer> qu=new ArrayDeque<Integer>();
+        int N = Integer.parseInt(br.readLine());
+        int arr[]=new int[N];
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        for(int i=1;i<=N;i++) {
+        	qu.add(i);
+        	arr[i-1]=Integer.parseInt(st.nextToken());
+        }
+        StringBuilder sb=new StringBuilder();
+        sb.append(qu.pollFirst()+" ");
+        int key=arr[0];
+        while(qu.size() != 0) {
+        	int k=1;
+        	if(key >0) {
+        		for(int i=0;i<key-1;i++) {
+        			qu.add(qu.poll());
+        		}
+        		k=qu.poll();
+        	}else {
+        		key= (int)Math.abs(key);
+        		for(int i=0;i<key-1;i++) {
+        			qu.addFirst(qu.pollLast());
+        		}
+        		k=qu.pollLast();
+        		
+        	}
+        	sb.append(k+" ");
+    		key=arr[k-1];
+        }
+        bw.write(sb.toString().trim());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+11.한가롭게 방학에 놀고 있던 도현이는 갑자기 재밌는 자료구조를 생각해냈다. 그 자료구조의 이름은 queuestack이다.
+
+queuestack의 구조는 다음과 같다. 
+1번, 2번, ... , N번의 자료구조(queue 혹은 stack)가 나열되어있으며, 각각의 자료구조에는 한 개의 원소가 들어있다.
+
+queuestack의 작동은 다음과 같다.
+
+x_0을 입력받는다.
+x_0을 1번 자료구조에 삽입한 뒤 1번 자료구조에서 원소를 pop한다.
+그때 pop된 원소를 x_1이라 한다.
+ 
+x_1을 2번 자료구조에 삽입한 뒤 
+2번 자료구조에서 원소를 pop한다. 그때 pop된 원소를 
+x_2이라 한다.
+...
+ 
+x_{N-1}을 N번 자료구조에 삽입한 뒤 
+N번 자료구조에서 원소를 pop한다. 그때 pop된 원소를 
+x_N이라 한다.
+x_N을 리턴한다.
+
+도현이는 길이 
+M의 수열 C를 가져와서 수열의 원소를 앞에서부터 차례대로 queuestack에 삽입할 것이다. 이전에 삽입한 결과는 남아 있다.
+queuestack에 넣을 원소들이 주어졌을 때, 해당 원소를 넣은 리턴값을 출력하는 프로그램을 작성해보자.
+
+입력
+첫째 줄에 queuestack을 구성하는 자료구조의 개수 
+N이 주어진다. (1 <= N <= 100,000)
+
+둘째 줄에 길이 N의 수열 A가 주어진다. 
+i번 자료구조가 큐라면 A_i = 0,
+스택이라면 A_i = 1이다.
+
+셋째 줄에 길이 N의 수열 B가 주어진다. B_i는 
+i번 자료구조에 들어 있는 원소이다. (1 <= B_i <= 1,000,000,000)
+
+넷째 줄에 삽입할 수열의 길이 
+M이 주어진다. (1 <= M  <= 100,000$)
+
+다섯째 줄에 queuestack에 삽입할 원소를 담고 있는 길이 
+M의 수열 C가 주어진다. (1 <= C_i <= 1,000,000,000)
+입력으로 주어지는 모든 수는 정수이다.
+
+출력
+수열 C의 원소를 차례대로 queuestack에 삽입했을 때의 리턴값을 공백으로 구분하여 출력한다.
+
+0)내가 생각한 풀이
+   1.Stack은 받는 값을 그대로 리턴하기에 필요가 없음 큐만 생각하면됨
+   2.셋째 줄에서 들어오는 값의 방향과 다섯째 줄에서 들어오는 값의 방향이 다름, 둘중 하나를 뒤집어서 넣거나 덱으로 앞으로 넣고 뒤에껄 출력할 생각
+
+1)시간초과
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        Deque<Integer> qu=new ArrayDeque<Integer>();
+        int N = Integer.parseInt(br.readLine());
+        String se=br.readLine();
+        String th=br.readLine();
+        for(int i=0;i<N;i++) {
+        	if(se.split(" ")[i].equals("0")) {
+        		qu.add(Integer.parseInt(th.split(" ")[i]));
+        	}
+        }
+        int fo=Integer.parseInt(br.readLine());
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        for(int i=0;i<fo;i++) {
+        	qu.addFirst(Integer.parseInt(st.nextToken()));
+        }
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<fo;i++) {
+        	sb.append(qu.pollLast()+" ");
+        }
+        bw.write(sb.toString().trim());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+2)for문 안의 split 매우 비효율적
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        // 입력 처리
+        int N = Integer.parseInt(br.readLine());
+        String[] se = br.readLine().split(" ");
+        String[] th = br.readLine().split(" ");
+        
+        Deque<Integer> qu = new ArrayDeque<>();
+        for (int i = 0; i < N; i++) {
+            if (se[i].equals("0")) {
+                qu.add(Integer.parseInt(th[i]));
+            }
+        }
+
+        int fo = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < fo; i++) {
+            qu.addFirst(Integer.parseInt(st.nextToken()));
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < fo; i++) {
+            sb.append(qu.pollLast()).append(" ");
+        }
+
+        bw.write(sb.toString().trim());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
