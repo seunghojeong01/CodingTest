@@ -1,0 +1,168 @@
+7.N장의 카드가 있다. 각각의 카드는 차례로 1부터 N까지의 번호가 붙어 있으며, 1번 카드가 제일 위에, N번 카드가 제일 아래인 상태로 순서대로 카드가 놓여 있다.
+이제 다음과 같은 동작을 카드가 한 장 남을 때까지 반복하게 된다. 우선, 제일 위에 있는 카드를 바닥에 버린다. 그 다음, 제일 위에 있는 카드를 제일 아래에 있는 카드 밑으로 옮긴다.
+예를 들어 N=4인 경우를 생각해 보자. 카드는 제일 위에서부터 1234 의 순서로 놓여있다. 1을 버리면 234가 남는다. 여기서 2를 제일 아래로 옮기면 342가 된다.
+3을 버리면 42가 되고, 4를 밑으로 옮기면 24가 된다. 마지막으로 2를 버리고 나면, 남는 카드는 4가 된다.
+N이 주어졌을 때, 제일 마지막에 남게 되는 카드를 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 정수 N(1 ≤ N ≤ 500,000)이 주어진다.
+
+출력
+첫째 줄에 남게 되는 카드의 번호를 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Queue;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        Queue<Integer> qu=new ArrayDeque<Integer>();
+        for(int i=1;i<=N;i++) {
+        	qu.add(i);
+        }
+        while(qu.size()!=1) {
+        	qu.remove();
+        	qu.add(qu.remove());
+        }
+        bw.write(String.valueOf(qu.poll()));
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+8.요세푸스 문제는 다음과 같다.
+
+1번부터 N번까지 N명의 사람이 원을 이루면서 앉아있고, 양의 정수 K(≤ N)가 주어진다. 이제 순서대로 K번째 사람을 제거한다.
+한 사람이 제거되면 남은 사람들로 이루어진 원을 따라 이 과정을 계속해 나간다. 이 과정은 N명의 사람이 모두 제거될 때까지 계속된다. 
+원에서 사람들이 제거되는 순서를 (N, K)-요세푸스 순열이라고 한다. 예를 들어 (7, 3)-요세푸스 순열은 <3, 6, 2, 7, 5, 1, 4>이다.
+N과 K가 주어지면 (N, K)-요세푸스 순열을 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 N과 K가 빈 칸을 사이에 두고 순서대로 주어진다. (1 ≤ K ≤ N ≤ 1,000)
+
+출력
+예제와 같이 요세푸스 순열을 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Queue;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int N = Integer.parseInt(st.nextToken());
+        int K= Integer.parseInt(st.nextToken());
+        Queue<Integer> qu=new ArrayDeque<Integer>();
+        for(int i=1;i<=N;i++) {
+        	qu.add(i);
+        }
+        StringBuilder sb=new StringBuilder();
+        sb.append("<");
+        while(qu.size() !=1) {
+        	for(int i=0;i<K-1;i++) {
+        		qu.add(qu.poll());
+        	}
+        	sb.append(qu.poll()+", ");
+        }
+        sb.append(qu.poll()+">");
+        bw.write(sb.toString().trim());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
+
+9.정수를 저장하는 덱을 구현한 다음, 입력으로 주어지는 명령을 처리하는 프로그램을 작성하시오.
+명령은 총 여덟 가지이다.
+
+1 X: 정수 X를 덱의 앞에 넣는다. (1 ≤ X ≤ 100,000)
+2 X: 정수 X를 덱의 뒤에 넣는다. (1 ≤ X ≤ 100,000)
+3: 덱에 정수가 있다면 맨 앞의 정수를 빼고 출력한다. 없다면 -1을 대신 출력한다.
+4: 덱에 정수가 있다면 맨 뒤의 정수를 빼고 출력한다. 없다면 -1을 대신 출력한다.
+5: 덱에 들어있는 정수의 개수를 출력한다.
+6: 덱이 비어있으면 1, 아니면 0을 출력한다.
+7: 덱에 정수가 있다면 맨 앞의 정수를 출력한다. 없다면 -1을 대신 출력한다.
+8: 덱에 정수가 있다면 맨 뒤의 정수를 출력한다. 없다면 -1을 대신 출력한다.
+입력
+첫째 줄에 명령의 수 N이 주어진다. (1 ≤ N ≤ 1,000,000)
+
+둘째 줄부터 N개 줄에 명령이 하나씩 주어진다.
+
+출력을 요구하는 명령은 하나 이상 주어진다.
+
+출력
+출력을 요구하는 명령이 주어질 때마다 명령의 결과를 한 줄에 하나씩 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayDeque;
+import java.util.Deque;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int N = Integer.parseInt(br.readLine());
+        Deque<Integer> qu=new ArrayDeque<Integer>();
+        StringBuilder sb=new StringBuilder();
+        for(int i=0;i<N;i++) {
+        	String S=br.readLine();
+        	if(S.startsWith("1")) {
+        		qu.addFirst(Integer.parseInt(S.split(" ")[1]));
+        	}else if(S.startsWith("2")) {
+        		qu.addLast(Integer.parseInt(S.split(" ")[1]));
+        	}else if(S.equals("3")) {
+        		if(qu.size()==0) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.poll()+"\n");
+        		}
+        	}else if(S.equals("4")) {
+        		if(qu.size()==0) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.pollLast()+"\n");
+        		}
+        	}else if(S.equals("5")) {
+        		sb.append(qu.size()+"\n");
+        	}else if(S.equals("6")) {
+        		if(qu.isEmpty()) {
+        			sb.append(1+"\n");
+        		}else {
+        			sb.append(0+"\n");
+        		}
+        	}else if(S.equals("7")) {
+        		if(qu.isEmpty()) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.peek()+"\n");
+        		}
+        	}else if(S.equals("8")) {
+        		if(qu.isEmpty()) {
+        			sb.append(-1+"\n");
+        		}else {
+        			sb.append(qu.peekLast()+"\n");
+        		}
+        	}
+        }
+        bw.write(sb.toString());
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+}
