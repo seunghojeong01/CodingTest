@@ -47,4 +47,3 @@ BeakJoon
 
     -for문도 너무 좋아함
 
-    -int의 범위  long;;
