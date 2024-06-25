@@ -1,0 +1,30 @@
+public class memo {
+
+	public static void main(String[] args) {
+		int cnt=0;
+		for(int i=0;i<100;i++) {
+			cnt=cnt++;
+			System.out.println(cnt);
+		}
+	}
+
+}
+0)
+1.현재 cnt저장
+
+2.cnt=0
+현재 cnt 값을 임시로 저장
+
+3.임시 변수에 0이 저장됩니다.
+cnt를 1 증가시킵니다.
+
+4.cnt=1,
+저장된 임시 값을 cnt에 다시 할당.
+
+5.임시 변수에 저장된 값(0)이 cnt에 다시 할당.따라서, cnt는 다시 0
+
+1)아니 이코드랑 같다고?
+int cnt = 0;
+int temp = cnt;  
+cnt = cnt + 1;  
+cnt = temp;      
