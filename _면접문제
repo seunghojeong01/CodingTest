@@ -32,7 +32,7 @@ cnt = temp;
 
 	public static void main(String[] args) {
 		int start=Integer.MAX_VALUE-1;
-		for(int i=start;i<start+1;i++) {
+		for(int i=start;i<=start+1;i++) {
 			System.out.println("RRR");
 		}
 	}
@@ -46,3 +46,4 @@ cnt = temp;
   i는 1 증가하여 2,147,483,647.
   그 다음 반복에서 i는 다시 1 증가. 그러나 2,147,483,647에 1을 더하면 2,147,483,648이 되는데, 이는 int의 범위를 초과
 4.int의 범위를 초과하면 오버플로우가 발생하여 i는 -2,147,483,648이 됨
+5.해결방안 long
