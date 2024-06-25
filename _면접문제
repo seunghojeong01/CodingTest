@@ -1,0 +1,48 @@
+1.public class memo {
+
+	public static void main(String[] args) {
+		int cnt=0;
+		for(int i=0;i<100;i++) {
+			cnt=cnt++;
+			System.out.println(cnt);
+		}
+	}
+
+}
+0)
+1.현재 cnt저장
+2.cnt=0
+현재 cnt 값을 임시로 저장
+3.임시 변수에 0이 저장됩니다.
+cnt를 1 증가시킵니다.
+4.cnt=1,
+저장된 임시 값을 cnt에 다시 할당.
+5.임시 변수에 저장된 값(0)이 cnt에 다시 할당.따라서, cnt는 다시 0
+
+1)아니 이코드랑 같다고?->후위연산자기 떄문에 값을 증가시키기 전에  값이 반환 
+int cnt = 0;
+int temp = cnt;  
+cnt = cnt + 1;  
+cnt = temp;      
+
+2) 그럼 전위연산자면? -> 1~100까지 나옴
+
+
+2.public class memo {
+
+	public static void main(String[] args) {
+		int start=Integer.MAX_VALUE-1;
+		for(int i=start;i<start+1;i++) {
+			System.out.println("RRR");
+		}
+	}
+
+}
+0)결과값 무한루프 
+1)
+1.int 자료형은 32비트 정수형으로, 그 범위는 -2,147,483,648에서 2,147,483,647까지
+2.Integer.MAX_VALUE는 2,147,483,647. 따라서 Integer.MAX_VALUE - 1은 2,147,483,646
+3.첫 번째 반복에서 i는 2,147,483,646.
+  i는 1 증가하여 2,147,483,647.
+  그 다음 반복에서 i는 다시 1 증가. 그러나 2,147,483,647에 1을 더하면 2,147,483,648이 되는데, 이는 int의 범위를 초과
+4.int의 범위를 초과하면 오버플로우가 발생하여 i는 -2,147,483,648이 됨
