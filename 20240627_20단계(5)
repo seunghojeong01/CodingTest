@@ -17,3 +17,49 @@ M이상인 단어들만 외운다고 한다. 화은이가 괴로운 영단어 �
 
 출력
 화은이의 단어장에 들어 있는 단어를 단어장의 앞에 위치한 단어부터 한 줄에 한 단어씩 순서대로 출력한다.
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        StringTokenizer st=new StringTokenizer(br.readLine());
+        int N=Integer.parseInt(st.nextToken());
+        int M=Integer.parseInt(st.nextToken());  //단어길이
+        HashMap<String, Integer> map=new HashMap<String, Integer>();
+        for(int i=0;i<N;i++) {
+        	String S=br.readLine();
+        	if(S.length() >= M) {
+        		map.put(S, map.getOrDefault(S, 0)+1);
+        	}
+        }
+        ArrayList<String> list=new ArrayList<String>(map.keySet());
+        
+        list.sort((a,b)->{
+        	int freqCompare = map.get(b) - map.get(a); // 빈도 비교
+            if (freqCompare != 0) {
+                return freqCompare;
+            }
+            int lengthCompare = b.length() - a.length(); // 길이 비교
+            if (lengthCompare != 0) {
+                return lengthCompare;
+            }
+            return a.compareTo(b); // 알파벳 사전순 비교
+        });
+        for(String word:list) {
+        	bw.write(word+"\n");
+        }
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+
+}
