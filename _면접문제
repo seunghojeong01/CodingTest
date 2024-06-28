@@ -26,7 +26,7 @@ cnt = cnt + 1;
 cnt = temp;      
 
 2) 그럼 전위연산자면? -> 1~100까지 나옴
-
+ 
 
 2.public class memo {
 
