@@ -119,7 +119,33 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-imp님
+import java.math.BigInteger;
+import java.util.StringTokenizer;
+
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+ 
+        int T=Integer.parseInt(br.readLine());
+        for(int i=0;i<T;i++) {
+        	String S= br.readLine();
+        	int result=isPalindrome(S);
+        	if(result>0) {
+        		bw.write("1 "+result+"\n");
+        	}else {
+        		bw.write("0 "+(-1*result)+"\n");
+        	}
+        }
+        
+        bw.flush();
+        bw.close();
+        br.close();
+    }
+    
+    public static int recursion(String s, int l, int r) {
+        if (l >= r) return 1*(l+1);            //1과0 대신 l값+1(횟수) 반환 
+        else if (s.charAt(l) != s.charAt(r)) return -1*(l+1);    // 양수일시 펠린드롬, 음수일 시 펠린드롬이 아닌거임
         else return recursion(s, l + 1, r - 1);
     }
     
