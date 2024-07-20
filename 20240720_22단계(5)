@@ -1,0 +1,79 @@
+5.N-Queen 문제는 크기가 N × N인 체스판 위에 퀸 N개를 서로 공격할 수 없게 놓는 문제이다.
+N이 주어졌을 때, 퀸을 놓는 방법의 수를 구하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 N이 주어진다. (1 ≤ N < 15)
+
+출력
+첫째 줄에 퀸 N개를 서로 공격할 수 없게 놓는 경우의 수를 출력한다.
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.StringTokenizer;
+
+public class Main {
+	private static int N;
+    private static int[][] selected;
+    private static BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(System.out));
+    private static int count;
+    
+    public static void main(String[] args) throws NumberFormatException, IOException {
+        BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+        N=Integer.parseInt(br.readLine());
+    
+        selected=new int[N][N];
+        NQueen(0);
+        
+        bw.write(String.valueOf(count));
+        bw.flush();
+        bw.close();
+        br.close();
+  
+       
+    }
+    public static void NQueen(int x) {
+    	if(x==N) {//x에 1을 더해가면서 NQueen이 돌아가기에 x==N이면 모든 퀸을 다 놓은거임
+    		count++;
+    	}
+    	for(int y=0;y<N;y++) {
+    		if(isSafe(x,y)) {
+    			selected[x][y]=1; //얘 먼저 퀸을 하나 놓고 시작 (기준점잡기)
+    			NQueen(x+1);//반복
+    			selected[x][y]=0;//해답을 찾은 이후 초기화
+    		}
+    	}	
+    }
+    
+    public static boolean isSafe(int x,int y) {
+    	 for (int i = 0; i < x; i++) {	//같은 열에 퀸이 있다면
+             if (selected[i][y] == 1) {
+                 return false;
+             }
+         }
+    	 for (int i = 0; i < y; i++) {	//같은 행에 있다면
+             if (selected[x][i] == 1) {
+                 return false;
+             }
+         }
+    	 //아래 두개의 for문은 대각선 검사 
+    	 //첫행부터 N행까지 순서대로 퀸을 두기때문
+    	 for (int i = x - 1, j = y - 1; i >= 0 && j >= 0; i--, j--) {
+             if (selected[i][j] == 1) {
+                 return false;
+             }
+         }
+
+         for (int i = x - 1, j = y + 1; i >= 0 && j < N; i--, j++) {
+             if (selected[i][j] == 1) {
+                 return false;
+             }
+         }
+
+		return true;
+    	
+    }
+    
+}
